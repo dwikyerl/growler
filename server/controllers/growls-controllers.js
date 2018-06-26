@@ -25,12 +25,19 @@ exports.getAllGrowls = async (req, res) => {
 
 exports.getGrowlById = async (req, res) => {
   const { growlId } = req.params;
+  console.log(growlId);
   const growl = await Growl.findOne({ _id: growlId, author: req.user.id });
 
-  res.status(200).json({
-    message: 'Growl retrieved successfully',
-    growl,
-  });
+  if (growl) {
+    res.status(200).json({
+      message: 'Growl retrieved successfully',
+      growl,
+    });
+  } else {
+    res.status(404).json({
+      message: 'Growl not found'
+    });
+  }
 };
 
 exports.updateGrowl = async (req, res) => {
@@ -41,19 +48,31 @@ exports.updateGrowl = async (req, res) => {
 
   const growl = await Growl.findOneAndUpdate({ _id: growlId, author: req.user.id }, updateData, { new: true });
 
-  res.status(200).json({
-    message: 'Growl updated successfully',
-    growl,
-  });
+  if (growl) {
+    res.status(200).json({
+      message: 'Growl updated successfully',
+      growl,
+    });
+  } else {
+    res.status(404).json({
+      message: 'Growl not found'
+    });
+  }
 };
 
 exports.deleteGrowl = async (req, res) => {
   const { growlId } = req.params;
 
   const deletedGrowl = await Growl.findOneAndRemove({ _id: growlId, author: req.user.id });
-
-  res.status(200).json({
-    message: 'Growl deleted successfully',
-    deletedGrowl
-  });
+  
+  if (deletedGrowl) {
+    res.status(200).json({
+      message: 'Growl deleted successfully',
+      deletedGrowl
+    });
+  } else {
+    res.status(404).json({
+      message: 'Growl not found'
+    });
+  }
 };
