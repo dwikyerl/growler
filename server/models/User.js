@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+const bcrypt = require('bcrypt');
 
 const userSchema = new Schema(
   {
@@ -26,6 +27,26 @@ const userSchema = new Schema(
   },
   { timestamps: true }
 );
+
+userSchema.methods.matchPassword = async function(passwordString) {
+  const match = await bcrypt.compare(passwordString, this.password);
+  return match;
+};
+
+userSchema.statics.isValidUser = function(username) {
+  const criteria = (!username.includes('@')) ? { username: username } : { email: username };
+  return this.findOne(criteria);
+}
+
+userSchema.pre('save', async function(next) {
+  if (this.password) {
+    const user = this;
+    const hash = await bcrypt.hash(user.password, 10);
+    user.password = hash;
+  }
+
+  next();
+});
 
 const User = mongoose.model("User", userSchema);
 
