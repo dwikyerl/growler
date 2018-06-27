@@ -23,11 +23,14 @@ exports.addLike = async (req, res) => {
 };
 
 exports.removeLike = async (req, res) => {
-  const { growlId, likeId } = req.params;
+  const { growlId } = req.params;
   const deletedLike = await Like.findOneAndRemove({
-    _id: likeId,
+    growl: growlId,
     user: req.user.id
   });
+
+  console.log(growlId, req.user.id);
+
   if (deletedLike) {
     res.status(200).json({ 
       message: 'Like removed successfully',

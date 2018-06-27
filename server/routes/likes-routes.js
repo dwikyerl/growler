@@ -12,13 +12,11 @@ router.route('/')
     authMiddlewares.verifyToken,
     authMiddlewares.authorizeUser,
     likesControllers.getLikes
+  )
+  .delete(
+    authMiddlewares.verifyToken,
+    authMiddlewares.authorizeUser,
+    likesControllers.removeLike
   );
-
-router.delete(
-  '/:likeId',
-  authMiddlewares.verifyToken,
-  authMiddlewares.authorizeUser,
-  likesControllers.removeLike
-);
 
 module.exports = router;

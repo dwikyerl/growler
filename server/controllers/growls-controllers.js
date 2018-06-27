@@ -32,7 +32,7 @@ exports.getAllGrowls = async (req, res) => {
 exports.getGrowlById = async (req, res) => {
   const { growlId } = req.params;
   const growl = await Growl
-    .findOne({ _id: growlId, author: req.user.id })
+    .findOne({ _id: growlId })
     .populate({
       path: 'author',
       model: 'User',

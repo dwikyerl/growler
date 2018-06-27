@@ -26,6 +26,19 @@ function autopopulate(next) {
   next();
 };
 
+growlSchema.post('save', function(doc, next) {
+  doc.populate({
+    path: 'author',
+    model: 'User',
+    select: '-password -createdAt -updatedAt'
+  })
+  .populate('likes')
+  .execPopulate()
+    .then(result => {
+      next();
+    });
+})
+
 growlSchema.pre('find', autopopulate);
 growlSchema.pre('findOne', autopopulate);
 growlSchema.pre('findById', autopopulate);
