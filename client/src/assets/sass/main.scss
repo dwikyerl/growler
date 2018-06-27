@@ -1,0 +1,8 @@
+@import "~bulma/sass/utilities/_all";
+
+$primary: hsl(171, 100%, 41%);
+$primary-invert: findColorInvert($primary);
+
+// Import Bulma and Buefy styles
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
