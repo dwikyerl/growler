@@ -17,6 +17,7 @@ exports.signin = async (req, res) => {
     const token = await jwt.sign(
       {
         id: user.id,
+        name: user.name,
         username: user.username,
         email: user.email
       },

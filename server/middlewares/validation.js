@@ -3,8 +3,13 @@ const { sanitizeBody } = require('express-validator/filter');
 const { User } = require('./../models');
 
 exports.validateRegister = [
+  body('name')
+    .not().isEmpty().withMessage('Name must not be empty')
+    .isString()
+    .trim()
+    .isLength({ min: 6 }),
   body('email')
-    .not().isEmpty().withMessage('Email must no be empty')
+    .not().isEmpty().withMessage('Email must not be empty')
     .isEmail()
     .normalizeEmail()
     .trim()
@@ -16,7 +21,7 @@ exports.validateRegister = [
       });
     }),
   body('username')
-    .not().isEmpty().withMessage('Email must no be empty')
+    .not().isEmpty().withMessage('Email must not be empty')
     .isString()
     .trim()
     .isLength({ min: 6 })
@@ -31,7 +36,7 @@ exports.validateRegister = [
   body('confirmPassword')
     .not().isEmpty().withMessage('Password confirmation must not be empty'),
   body('password')
-    .not().isEmpty().withMessage('Password must no be empty')
+    .not().isEmpty().withMessage('Password must not be empty')
     .isLength({ min: 6 }).withMessage('Password must be at least 6 characters')
     .custom((value, { req }) => {
       if (value !== req.body.confirmPassword) {
@@ -44,7 +49,7 @@ exports.validateRegister = [
 
 exports.validateSignin = [
   body('username')
-    .not().isEmpty().withMessage('Username must no be empty')
+    .not().isEmpty().withMessage('Username must not be empty')
     .isString()
     .customSanitizer((value, { req }) => {
       if (value.includes('@')) {
@@ -54,7 +59,7 @@ exports.validateSignin = [
       }
     }),
   body('password')
-    .not().isEmpty().withMessage('Password must no be empty')
+    .not().isEmpty().withMessage('Password must not be empty')
 ];
 
 exports.checkValidation = (req, res, next)  => {
