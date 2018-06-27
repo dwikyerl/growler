@@ -15,6 +15,7 @@ exports.register = async (req, res) => {
 
 exports.getUserInfo = async (req, res) => {
   const user = {
+    id: req.user.id,
     name: req.user.name,
     username: req.user.username,
     email: req.user.username,

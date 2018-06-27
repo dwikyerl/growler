@@ -16,7 +16,7 @@ exports.createGrowl = async (req, res) => {
 
 exports.getAllGrowls = async (req, res) => {
   const growls = await Growl
-    .find({ author: req.user.id })
+    .find()
     .populate({
       path: 'author',
       model: 'User',
