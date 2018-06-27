@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <form>
+    <form @submit.prevent="submitSignin">
       <b-field>
         <div class="has-text-centered">
           <b-icon icon="panda"></b-icon>
@@ -13,6 +13,7 @@
           size="is-medium"
           icon="account"
           placeholder="Username or Email"
+          v-model="username"
         >
         </b-input>
       </b-field>
@@ -22,6 +23,7 @@
           placeholder="Password"
           password-reveal
           icon="lock"
+          v-model="password"
         >
         </b-input>
       </b-field>
@@ -44,8 +46,27 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'HomeSigninBox',
+  data() {
+    return {
+      username: '',
+      password: '',
+    };
+  },
+  methods: {
+    ...mapActions(['signin']),
+    submitSignin() {
+      const loginData = {
+        username: this.username,
+        password: this.password,
+      };
+
+      this.signin(loginData);
+    },
+  },
 };
 </script>
 

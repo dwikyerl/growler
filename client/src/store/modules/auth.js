@@ -18,21 +18,23 @@ const mutations = {
 };
 
 const actions = {
-  signOut({ commit }) {
+  signout({ commit }) {
     commit('SET_TOKEN', null);
     window.localStorage.removeItem('token');
     router.push({ name: 'home' });
   },
-  async signIn({ commit }, loginData) {
+  async signin({ commit, dispatch }, loginData) {
     try {
       const { data } = await axios.post('http://localhost:5000/api/signin', loginData);
       commit('SET_TOKEN', data.token);
       window.localStorage.setItem('token', data.token);
-      // await dispatch('getUserInfo', null, { root: true });
+      await dispatch('getUserInfo', null, { root: true });
       console.log(data.token);
-      // router.push({ name: 'timeline' });
+      router.push({ name: 'timeline' });
     } catch (e) {
-      console.log(e.response);
+      if (e.response) {
+        console.log(e.response);
+      }
     }
   },
 };
