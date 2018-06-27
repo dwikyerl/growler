@@ -1,21 +1,29 @@
 <template>
   <div id="app">
-    <AppHeaderHome></AppHeaderHome>
+    <AppHeader></AppHeader>
     <router-view/>
   </div>
 </template>
 
 <script>
-import AppHeaderHome from '@/components/AppHeaderHome.vue';
+import AppHeader from '@/components/AppHeader.vue';
 
 export default {
   name: 'App',
   components: {
-    AppHeaderHome,
+    AppHeader,
   },
 };
 </script>
 
 
 <style lang="scss">
+.icon {
+  margin-left: -.25em;
+  margin-right: .25em;
+}
+
+html, body {
+  background-color: #ECF0F3;
+}
 </style>

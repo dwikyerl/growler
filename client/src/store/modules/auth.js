@@ -29,7 +29,6 @@ const actions = {
       commit('SET_TOKEN', data.token);
       window.localStorage.setItem('token', data.token);
       await dispatch('getUserInfo', null, { root: true });
-      console.log(data.token);
       router.push({ name: 'timeline' });
     } catch (e) {
       if (e.response) {

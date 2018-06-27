@@ -4,7 +4,7 @@
       <b-field>
         <div class="columns is-row-reverse">
           <div class="column is-1-tablet">
-            <a>
+            <a @click="back">
               <b-icon icon="arrow-left" size="is-medium"></b-icon>
             </a>
           </div>
@@ -104,6 +104,9 @@ export default {
       } catch (e) {
         console.log(e.response);
       }
+    },
+    back() {
+      this.$router.go(-1);
     },
   },
 };

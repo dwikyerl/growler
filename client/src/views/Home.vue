@@ -40,7 +40,6 @@ export default {
 
 .home {
   height: 100vh;
-  padding: 3.4rem 0 0;
 
   &__columns {
     height: 100%;
