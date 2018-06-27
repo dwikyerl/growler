@@ -11,7 +11,7 @@
           <p>
             <strong>{{ growl.author.name || 'Anonymous' }}</strong>
             <small> @{{ growl.author.username }} </small>
-            ·<small> 31m </small>
+            ·<small> {{ createdTime }} </small>
             <br>
             <span style="white-space: pre;">{{ growl.content }}</span>
           </p>
@@ -24,17 +24,42 @@
             <a class="level-item">
               <span class="icon is-small"><b-icon icon="twitter-retweet"></b-icon></span>
             </a>
-            <a class="level-item">
-              <span class="icon is-small"><b-icon icon="heart-outline"></b-icon></span>
+            <a @click="() => likeGrowl({ growlId: growl._id, likeThisGrowl })" class="level-item">
+              <span class="icon is-small"><b-icon :icon="likeIcon"></b-icon></span>
             </a>
           </div>
         </nav>
+      </div>
+      <div class="media-right" v-if="username === this.growl.author.username">
+        <b-dropdown position="is-bottom-left">
+            <a slot="trigger">
+                <b-icon icon="menu-down"></b-icon>
+            </a>
+
+            <b-dropdown-item>
+                <div class="is-flex">
+                  <b-icon icon="pencil"></b-icon>
+                  <span>Edit</span>
+                </div>
+            </b-dropdown-item>
+
+            <b-dropdown-item @click="() => deleteGrowl(growl._id)">
+                <div class="is-flex">
+                  <b-icon icon="delete"></b-icon>
+                  <span>Delete</span>
+                </div>
+            </b-dropdown-item>
+
+        </b-dropdown>
       </div>
     </article>
   </div>
 </template>
 
 <script>
+import moment from 'moment';
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
   name: 'GrowlerGrowlCard',
   props: {
@@ -42,6 +67,31 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  computed: {
+    ...mapGetters(['username']),
+    createdTime() {
+      return moment(this.growl.createdAt).fromNow();
+    },
+    likeThisGrowl() {
+      const { likes } = this.growl;
+      const hasAlreadyLiked = likes.some(like => like.user.username === this.username);
+      if (hasAlreadyLiked) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    likeIcon() {
+      if (this.likeThisGrowl) {
+        return 'heart';
+      } else {
+        return 'heart-outline';
+      }
+    }
+  },
+  methods: {
+    ...mapActions(['deleteGrowl', 'likeGrowl']),
   },
 };
 </script>

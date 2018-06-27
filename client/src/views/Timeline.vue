@@ -3,11 +3,16 @@
     <div class="columns">
       <div class="column is-3">
         <GrowlerProfileCard></GrowlerProfileCard>
+        <div class="section">
+          <div class="columns is-centered has-text-centered">
+            <button @click="getAllGrowls" class="button is-danger">Refresh Timeline</button>
+          </div>
+        </div>
       </div>
       <div class="column is-9">
         <GrowlerGrowlBox></GrowlerGrowlBox>
         <GrowlerGrowlCard
-          v-for="growl in allGrowls"
+          v-for="growl in growls"
           :key="growl._id"
           :growl="growl">
         </GrowlerGrowlCard>
@@ -30,7 +35,10 @@ export default {
     GrowlerGrowlCard,
   },
   computed: {
-    ...mapGetters(['allGrowls']),
+    ...mapGetters(['allGrowls', 'allGrowlsByCreated']),
+    growls() {
+      return this.allGrowlsByCreated;
+    },
   },
   methods: {
     ...mapActions(['getAllGrowls']),
