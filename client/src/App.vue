@@ -19,11 +19,15 @@ export default {
 
 <style lang="scss">
 .icon {
-  margin-left: -.25em;
   margin-right: .25em;
+}
+
+.columns {
+  margin: 0 !important;
 }
 
 html, body {
   background-color: #ECF0F3;
+  min-height: 100vh;
 }
 </style>

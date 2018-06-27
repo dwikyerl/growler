@@ -8,6 +8,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "autosize": "^4.0.2",
+    "autosize-input": "^1.0.2",
     "axios": "^0.18.0",
     "buefy": "^0.6.6",
     "vue": "^2.5.16",

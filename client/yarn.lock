@@ -1286,6 +1286,14 @@ autoprefixer@^8.4.1:
     postcss "^6.0.22"
     postcss-value-parser "^3.2.3"
 
+autosize-input@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/autosize-input/-/autosize-input-1.0.2.tgz#16312e191391c12d66d94ddf9d8e4be07fc48a00"
+
+autosize@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/autosize/-/autosize-4.0.2.tgz#073cfd07c8bf45da4b9fd153437f5bafbba1e4c9"
+
 aws-sign2@~0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.6.0.tgz#14342dd38dbcc94d0e5b87d763cd63612c0e794f"

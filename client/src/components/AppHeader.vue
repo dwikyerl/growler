@@ -57,7 +57,7 @@
           </div>
 
           <div class="navbar-dropdown is-right">
-            <a @click.prevent="signout" class="navbar-item">
+            <a @click.prevent="submitSignout" class="navbar-item">
               <b-icon icon="logout"></b-icon>
               <span>Signout</span>
             </a>
@@ -85,6 +85,10 @@ export default {
     ...mapActions(['getUserInfo', 'signout']),
     toggleBurger() {
       this.isBurgerActive = !this.isBurgerActive;
+    },
+    submitSignout() {
+      this.isBurgerActive = false;
+      this.signout();
     },
   },
   created() {
