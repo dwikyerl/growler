@@ -15,7 +15,13 @@ exports.createGrowl = async (req, res) => {
 };
 
 exports.getAllGrowls = async (req, res) => {
-  const growls = await Growl.find({ author: req.user.id });
+  const growls = await Growl
+    .find({ author: req.user.id })
+    .populate({
+      path: 'author',
+      model: 'User',
+      select: '-password -createdAt -updatedAt'
+    });
 
   res.status(200).json({
     message: 'Growls retrieved successfully',
@@ -25,8 +31,13 @@ exports.getAllGrowls = async (req, res) => {
 
 exports.getGrowlById = async (req, res) => {
   const { growlId } = req.params;
-  console.log(growlId);
-  const growl = await Growl.findOne({ _id: growlId, author: req.user.id });
+  const growl = await Growl
+    .findOne({ _id: growlId, author: req.user.id })
+    .populate({
+      path: 'author',
+      model: 'User',
+      select: '-password -createdAt -updatedAt'
+    });
 
   if (growl) {
     res.status(200).json({

@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { growlsControllers } = require('./../controllers');
 const authMiddlewares = require('./../middlewares/auth-middlewares');
+const likeRoutes = require('./likes-routes');
 
 router.route('/')
   .post(
@@ -30,5 +31,7 @@ router.route('/:growlId')
     authMiddlewares.authorizeUser,
     growlsControllers.deleteGrowl
   );
+
+router.use('/:growlId/likes', likeRoutes);
 
 module.exports = router;
