@@ -92,7 +92,9 @@ export default {
     },
   },
   created() {
-    this.getUserInfo();
+    if (this.$route.name !== 'home') {
+      this.getUserInfo();
+    }
   },
 };
 </script>
